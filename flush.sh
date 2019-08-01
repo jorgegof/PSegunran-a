@@ -1,0 +1,13 @@
+#!/bin/bash
+
+IPLANR=192.168.0.254
+IPLANH=192.168.0.1
+IPDMZR=172.16.0.6
+IPDMZH=172.16.0.5
+IPDNS=192.168.15.1
+
+iptables -F
+
+iptables -P INPUT ACCEPT
+iptables -P OUTPUT ACCEPT
+iptables -P FORWARD ACCEPT
