@@ -1,0 +1,12 @@
+-j LOG --log-level info --log-prefix "Indirect DROP (in):"
+
+nano /etc/rsyslog.d/10-firewall.conf
+
+if $programname == 'kernel' and ($msg contains 'Indirect DROP' or $msg contains 'DROP profile ') then /var/log/firewall/access.log
+& ~
+
+1. Como o log do netfilter é gerado por um evento de kernel, filtramos “programname” como “kernel” e incluímos a instrução “que contenha Indirect DROP” na mensagem ($msg). Em “then” basta informar o arquivo de destino.
+
+2. A segunda instrução é utilizada para tornar este evento único – sem duplicar em outros arquivos (algo que aconteceria por padrão).
+
+service rsyslog restart
